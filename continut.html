@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head> <title> Atestat </title> </head>
+<body>
+<a name="introducere">
+<h2>Introducere</h2></a>
+<p>
+&#9758;Am ales sa realizez acest proiect cu scopul de a explora si analiza conceptul de grafuri orientate, o tema fundamentala în domeniul teoriei grafurilor. Prin acest proiect, intentionez sa ajut la intelegerea mai buna a caracteristicilor, aplicatiilor si tehnicilor de algoritmica specifice acestui tip de graf, care sunt esentiale in rezolvarea unor probleme complexe din diverse domenii, cum ar fi informatica, retelele de comunicatie sau analiza structurilor de date. De asemenea, proiectul isi propune sa ofere o abordare practica si teoretica a problemelor ce pot fi modelate prin grafuri orientate, contribuind astfel la aprofundarea cunostintelor în domeniu.
+</p><a href="#introducere"></a>
+<a name="terminologie">
+<h2>Terminologie</h2></a>
+
+&#8505; Se numeste graf orientat perechea ordonata de multimi G=(X,E), unde X este o multime finita si nevida numita multimea nodurilor, iar E este o multime de perechi ordonate, având ambele extremitati în X, numita multimea arcelor grafului.
+Putem considera un graf orientat asemanator unuia neorientat, cu muchiile orientate într-o directie. Pentru a le diferentia, numim muchiile grafului orientat arce.
+
+La fel,<ul>
+<li>
+numarul nodurilor se noteaza cu n</li>
+<li>numarul arcelor se noteaza cu m</li></ul>
+<u>Reprezentarea grafica a unui graf orientat</u>
+<ul><li>Nodurile se reprezinta prin puncte sau cercuri etichetate;</li>
+<li>Arcele se reprezinta prin segmente orientate.</li></ul>
+<img src="imagini/graf.svg">
+<h3><u><b>1.Nod</u></b></h3>
+<p>&#9758;Nodurile sunt punctele grafului orientat, alcatuind multimea nodurilor.
+Ele sunt etichetate în general fie cu cifre, fie cu litere, pentru a putea fi diferentiate. Multimea de noduri se noteaza cu X si contine toate nodurile grafului.
+<u>Exemplu:</u> Pentru graful descris mai sus, multimea nodurilor este X={1,2,3,4,5,6}.</p>
+<h3><u><b>2.Arce</u></b></h3>
+<p>&#9758;Arcele sunt legaturi ordonate între nodurile grafului.
+Extremitatile unui arc se scriu între paranteze rotunde, ordinea acestora fiind importanta în determinarea sensului arcului.
+Fie (x,y) un arc:
+<ul>
+<li>arcul porneste din x si ajunge în y;</li>
+<li>x se numeste extremitate initiala a arcului;</li>
+<li>y se numeste extremitate finala a arcului.</li></ul></p>
+<h3><u><b>3.Adiacenta</u></b></h3>
+<p>&#9758;Doua noduri x si y se numesc adiacente daca formeaza un arc.
+
+<u>Exemplu:</u> În graful de mai sus, nodul 2 este adiacent cu nodurile 1, 3 si 4.</p>
+
+<h3><u><b>4. Incidenta</u></b></h3>
+ <p>&#9758;Doua arce se numesc incidente daca au o extremitate comuna.
+
+<u>Exemple</u> (graful de mai sus):
+<ul><li>arcul (6,3) este incident cu arcul (3,4) <=> 3 este vârf comun;</li>
+<li>arcul (1,2) nu este incident cu arcul (5,6), deoarece nu au niciun nod în comun.</li></ul>
+ Un nod este incident cu un arc daca este extremitate al acestuia.
+
+<u>Exemple</u> (graful de mai sus):
+<ul><li>nodul 3 este incident cu arcul (1,3) si arcul (6,3);</li>
+<li>nodul 1 nu este incident cu arcul (3,4), deoarece nu este extremitate al acestuia.</li></ul></p>
+<h3><u><b>5. Gradul nodurilor</u></b></h3>
+ <p>&#9758;Gradul unui nod x reprezinta numarul de noduri adiacente cu x (sau numarul de arce incidente cu x).
+
+La grafuri orientate, avem doua tipuri de grade:
+<i>Gradul interior</i> reprezinta numarul arcelor care au extremitatea finala în nod si este notat cu d<sup>-</sup>(x);
+<i>Gradul exterior</i> reprezinta numarul arcelor care au extremitatea initiala în nod si este notat cu d<sup>+</sup>(x).
+<u>Exemple</u> (din graful de mai sus):<br>
+d<sup>-</sup>(1)=1 ; d<sup>+</sup>(1)=2 ~ în nodul 1 „intra un arc si ies doua”<br>
+
+d<sup>-</sup>(3)=3 ; d<sup>+</sup>(3)=1<br>
+d<sup>-</sup>(6)=1 ; d<sup>+</sup>(6)=1<br>
+&#8505; Un nod izolat în graful orientat are ambele grade egale cu 0.</p>
+<a href="#terminologie"></a>
+<a name="reprezentare">
+<h2>Reprezentarea in memorie</h2></a>
+<a href="#reprezentare"></a>
+</body>
+</html>
