@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<html>
+<head> <title> Atestat </title> </head>
+<body>
+
+<h2 id="introducere">Introducere</h2>
+<p>
+&#9758;Am ales sa realizez acest proiect cu scopul de a explora si analiza conceptul de grafuri orientate, o tema fundamentala în domeniul teoriei grafurilor. Prin acest proiect, intentionez sa ajut la intelegerea mai buna a caracteristicilor, aplicatiilor si tehnicilor de algoritmica specifice acestui tip de graf, care sunt esentiale in rezolvarea unor probleme complexe din diverse domenii, cum ar fi informatica, retelele de comunicatie sau analiza structurilor de date. De asemenea, proiectul isi propune sa ofere o abordare practica si teoretica a problemelor ce pot fi modelate prin grafuri orientate, contribuind astfel la aprofundarea cunostintelor în domeniu.
+</p>
+
+<h2 id="terminologie">Terminologie</h2>
+
+&#8505; Se numeste graf orientat perechea ordonata de multimi G=(X,E), unde X este o multime finita si nevida numita multimea nodurilor, iar E este o multime de perechi ordonate, având ambele extremitati în X, numita multimea arcelor grafului.
+Putem considera un graf orientat asemanator unuia neorientat, cu muchiile orientate într-o directie. Pentru a le diferentia, numim muchiile grafului orientat arce.
+
+La fel,<ul>
+<li>
+numarul nodurilor se noteaza cu n</li>
+<li>numarul arcelor se noteaza cu m</li></ul>
+<u>Reprezentarea grafica a unui graf orientat</u>
+<ul><li>Nodurile se reprezinta prin puncte sau cercuri etichetate;</li>
+<li>Arcele se reprezinta prin segmente orientate.</li></ul>
+<img src="imagini/graf.svg">
+<h3><u><b>1.Nod</u></b></h3>
+<p>&#9758;Nodurile sunt punctele grafului orientat, alcatuind multimea nodurilor.
+Ele sunt etichetate în general fie cu cifre, fie cu litere, pentru a putea fi diferentiate. Multimea de noduri se noteaza cu X si contine toate nodurile grafului.
+<u>Exemplu:</u> Pentru graful descris mai sus, multimea nodurilor este X={1,2,3,4,5,6}.</p>
+<h3><u><b>2.Arce</u></b></h3>
+<p>&#9758;Arcele sunt legaturi ordonate între nodurile grafului.
+Extremitatile unui arc se scriu între paranteze rotunde, ordinea acestora fiind importanta în determinarea sensului arcului.
+Fie (x,y) un arc:
+<ul>
+<li>arcul porneste din x si ajunge în y;</li>
+<li>x se numeste extremitate initiala a arcului;</li>
+<li>y se numeste extremitate finala a arcului.</li></ul></p>
+<h3><u><b>3.Adiacenta</u></b></h3>
+<p>&#9758;Doua noduri x si y se numesc adiacente daca formeaza un arc.
+
+<u>Exemplu:</u> În graful de mai sus, nodul 2 este adiacent cu nodurile 1, 3 si 4.</p>
+
+<h3><u><b>4. Incidenta</u></b></h3>
+ <p>&#9758;Doua arce se numesc incidente daca au o extremitate comuna.
+
+<u>Exemple</u> (graful de mai sus):
+<ul><li>arcul (6,3) este incident cu arcul (3,4) <=> 3 este vârf comun;</li>
+<li>arcul (1,2) nu este incident cu arcul (5,6), deoarece nu au niciun nod în comun.</li></ul>
+ Un nod este incident cu un arc daca este extremitate al acestuia.
+
+<u>Exemple</u> (graful de mai sus):
+<ul><li>nodul 3 este incident cu arcul (1,3) si arcul (6,3);</li>
+<li>nodul 1 nu este incident cu arcul (3,4), deoarece nu este extremitate al acestuia.</li></ul></p>
+<h3><u><b>5. Gradul nodurilor</u></b></h3>
+ <p>&#9758;Gradul unui nod x reprezinta numarul de noduri adiacente cu x (sau numarul de arce incidente cu x).
+
+La grafuri orientate, avem doua tipuri de grade:
+<i>Gradul interior</i> reprezinta numarul arcelor care au extremitatea finala în nod si este notat cu d<sup>-</sup>(x);
+<i>Gradul exterior</i> reprezinta numarul arcelor care au extremitatea initiala în nod si este notat cu d<sup>+</sup>(x).
+<u>Exemple</u> (din graful de mai sus):<br>
+d<sup>-</sup>(1)=1 ; d<sup>+</sup>(1)=2 ~ în nodul 1 „intra un arc si ies doua”<br>
+
+d<sup>-</sup>(3)=3 ; d<sup>+</sup>(3)=1<br>
+d<sup>-</sup>(6)=1 ; d<sup>+</sup>(6)=1<br>
+&#8505; Un nod izolat în graful orientat are ambele grade egale cu 0.</p>
+<h3><u><b>6. Formule grafuri orientate</u></b></h3>
+<p>Grafurile orientate au anumite proprietati, din care se pot genera mai multe formule utile:
+<ul>
+<li><b>numarul maxim de arce</b> într-un graf orientat cu n noduri este<b> A<sub>n</sub><sup>2</sup> </b>sau <b>n*(n-1) </b>;</li>
+<li><b>suma gradelor</b> nodurilor unui graf orientat este egala cu dublul numarului de arce, deci <b>2*m</b>;</li>
+<li><b>numarul de grafuri orientate</b> ce se pot forma cu n vârfuri este egal cu <b>2<sup>A<sub>n</sub><sup>2</sup></sup></b> sau <b>2<sup>n*(n-1)</sup></b>;</li></ul></p> 
+
+
+<h2 id="reprezentare">Reprezentarea in memorie</h2>
+<p>Grafurile orientate pot fi memorate cu ajutorul unor structuri de date. Cele mai întâlnite la grafuri orientate sunt: matrice de adiacenta si liste de adiacenta.</p>
+<h3><u><b>1. Matricea de adiacenta</u></b></h3>
+<p><b>Matricea de adiacenta</b> este cea mai utilizata metoda de reprezentare a grafurilor orientate. Din reprezentarea acesteia putem deduce diverse informatii despre graf, precum multimea arcelor, gradele nodurilor, drumuri, circuite etc.
+Matricea de adiacenta a grafurilor orientate are urmatoarea structura:</p>
+<img src="imagini/graf2.svg">
+<p>Diferit fata de matricea de adiacenta de la grafuri neorientate, în aceasta vom pune valoarea 1 acolo unde linia este extremitatea initiala, iar coloana este extremitatea finala a fiecarui arc, pe rând.
+Exemplu de graf orientat si matricea sa de adiacenta:</p>
+<img src="imagini/graf3.svg">
+<p>&#8505;  Matricea este patratica si are atâtea linii si coloane câte noduri are graful.
+Construirea matricei de adiacenta se face usor parcurgând pe linii fiecare nod, iar pentru arcele care „pleaca” din fiecare nod se marcheaza cu 1 cealalta extremitate a arcului.
+<br><u><b> Proprietati ale matricei de adiacenta</u></b><br>
+<ol>
+<li> Diagonala principala are toate elementele egale cu 0;</li>
+<li>Suma elementelor din matrice este m (numarul total de arce ale grafului);</li>
+<li>Suma elementelor de pe o linie reprezinta gradul exterior al nodului cu indicele corespunzator;</li> 
+<li>Suma elementelor de pe o coloana reprezinta gradul interior al nodului cu indicele corespunzator.</li></ol>
+</p>
+<h3><u><b>2. Lista de adiacenta</u></b></h3>
+<p>Lista de adiacenta a unui nod i contine toate nodurile spre care pleaca arce din i.
+Exemplul unui graf orientat si a listei sale de adiacenta:</p>
+<img src="imagini/graf4.svg">
+<p><u><b>Proprietati ale listelor de adiacenta</u></b><br>
+<ol><li>Numarul nodurilor din lista unui nod reprezinta gradul exterior al acestuia;</li>
+<li>Pentru fiecare nod, numarul de aparitii în celelalte liste reprezinta gradul interior al acestuia;</li>
+<li>Numarul total de elemente din toate listele este egal cu m (numarul total de arce).</li></ol></p>
+
+
+<h2 id="conexitate">Conexitate</h2>
+<h3><u><b>1. Drumuri</u></b></h3>
+<p>Fie G=(X,E) un graf orientat.
+Se numeste drum în graful G o succesiune de noduri cu proprietatea cã oricare douã noduri sunt unite de un arc.
+Fiind vorba despre un graf orientat, va trebui sã tinem cont de orientarea arcelor pentru a determina corect un drum.</p>
+<h4>Clasificare</h4><p>
+Clasificarea drumurilor în graful orientat se poate face dupã douã criterii.
+
+În functie de noduri:
+<ul>
+<li>drum elementar: toate nodurile diferã douã câte douã (nu se trece prin acelasi nod de douã ori);</li>
+<li>drum neelementar: se pot repeta nodurile.</li></ul>
+În functie de arce:
+<ul>
+<li>drum simplu: toate arcele din drum sunt diferite între ele (nu se repetã niciun arc);</li>
+<li>drum compus: se pot repeta unele arce de mai multe ori în acelasi drum.</li></ul>
+Exemple de drumuri în graful orientat:</p>
+<img src="imagini/graf5.svg">
+<p>&#8505; Lungimea unui drum este datã numãrul de arce pe care acesta îl contine.<br>
+Pentru graful anterior, drumul D3 este cel mai lung drum simplu (neelementar), iar D5 este cel mai lung drum elementar, de lungime 5.
+</p>
+<h3><u><b>2. Circuit</u></b></h3>
+<p>Fie G=(X,E) un graf orientat.
+
+Se numeste circuit în graful G un drum simplu în care primul nod coincide cu ultimul.
+Intuitiv, circuitul diferã de notiunea de ciclu prin existenta „sensului de mers” al arcelor.
+</p>
+<h4>Clasificarea circuitelor</h4>
+<p>Circuitele dintr-un graf orientat se pot clasifica în functie de nodurile sale:
+<ul>
+<li>circuit elementar: nodurile diferã douã câte douã (nu se repetã niciun nod), cu exceptia extremitãtilor;</li>
+<li>circuit neelementar: se trece de mai multe ori prin cel putin un nod (excluzând capetele circuitului).</li></ul>
+ &#8505; Lungimea unui circuit este egalã cu numãrul de arce din care este format.
+Exemple de circuite în graful orientat:</p>
+<img src="imagini/graf6.svg">
+Exemple de circuite în graf orientat
+Pentru acest graf orientat:<ul>
+<li>C2 este cel mai lung circuit elementar (lungime 5);</li>
+<li>C1, C2 si C3 sunt circuite elementare;</li>
+<li>C4 si C5 sunt cele mai lungi circuite simple neelementare, de lungime 8.</li></ul>
+ &#8505; Un graf orientat fãrã circuite este aciclic.</p>
+ <h3><u><b>3. Graf tare conex</u></b></h3>
+ <p>Fie G=(X,E) un graf orientat.
+
+Graful orientat G este tare conex dacã pentru oricare douã noduri x,y&#8712;X existã cel putin un drum de la x la y si unul de la y la x.
+Numim astfel un graf orientat tare conex dacã putem gãsi drumuri în ambele sensuri între toate nodurile grafului (douã câte douã).
+ &#8505; Proprietatea de tare conex are la bazã notiunea de graf conex. Putem defini astfel un graf orientat ca fiind doar conex, atunci când nodurile sunt unite între ele doar într-un sens.
+Exemplu de graf tare conex si graf orientat conex:</p>
+<img src="imagini/graf7.svg">
+<p>
+Analizând exemplul:
+<ul>
+<li>Graful 1 este un graf orientat tare conex, deoarece putem gãsi un drum în ambele sensuri între oricare douã noduri;</li>
+<li>Graful 2 este un graf orientat conex, deoarece putem gãsi un lant între oricare douã noduri, dar nu un drum.</li></ul>
+În desen am marcat câteva arce cu rosu. Subgrafurile pe care le despart respectã proprietatea de tare conexitate. Intuitiv, proprietatea de tare conexitate pentru graf depinde de felul în care se unesc componentele.
+Asfel, observãm la primul graf o legãturã „dus-întors” între cele douã componente, iar pentru al doilea graf avem doar într-un sens.
+
+ &#8505; Notiunea de subgraf tare conex este cea care stã la baza unei componente tare conexã.</p>
+<h3><u><b>4. Componenta tare conexa</u></b></h3>
+<p>Fie G=(X,E) un graf orientat.
+
+Se numeste componentã tare conexã a grafului G un subgraf al sãu, maximal în raport cu proprietatea de  tare conexitate.
+Altfel spus, o componentã tare conexã este o parte din graf care are proprietatea de tare conexitate.
+
+ &#8505; Un graf tare conex este format dintr-o singurã componentã tare conexã. Un nod izolat reprezintã la rândul lui o componentã tare conexã.
+
+Exemple de componente tare conexe:</p>
+<img src="imagini/graf8.svg">
+<p>
+Observãm cã:
+<ul>
+<li>Primul graf este tare conex, astfel este compus dintr-o singurã componentã tare conexã;</li>
+<li>Al doilea graf are 3 componente tare conexe. Vãzute ca subgrafuri, ele au proprietatea de graf tare conex.</li></ul></p>
+<h2 id="tipuri">Tipuri de grafuri orientate</h2>
+<h3><u><b>1. Graf partial</u></b></h3>
+<p>Fie G=(X,E) un graf orientat.
+
+Se numeste graf partial al lui G un graf G1=(X1,E1), cu proprietatea cã X1=X si E1 este o submultime a multimii E.
+Întelegem cã un graf partial contine aceleasi noduri, dar mai putine arce decât graful initial.
+
+Iatã un exemplu de graf orientat si un graf partial al sãu:
+</p>
+<img src="imagini/graf9.svg">
+ <p> &#8505; Exemplul aratã doar unul dintre grafurile partiale posibile.
+
+
+În stânga se aflã un graf orientat, iar în dreapta este un graf partial al sãu. În formarea submultimii de arce, au fost eliminate arcele ce au extremitatea initialã într-un nod impar.
+<br>
+ &#9758; Numãrul maxim de grafuri partiale ale unui graf orientat cu m arce este: 2<sup>m</sup>.
+Deducem aceastã formulã din faptul cã fiecare arc al grafului initial poate fi prezent sau absent în graful partial pe care îl formãm.</p>
+<h3><u><b>2. Subgraf</u></b></h3>
+<p>Fie G=(X,E) un graf orientat.
+
+Se numeste subgraf al lui G un graf G1=(X1,E1), cu proprietatea X1 este o submultime a lui X si E1=E.
+Astfel, subgraful contine mai putine noduri decât graful initial, pãstrând toate arcele care existã între nodurile rãmase (care au ambele extremitãti în submultimea aleasã de noduri).
+Un exemplu de graf orientat si un subgraf al sãu:</p>
+<img src="imagini/graf10.svg">
+<p>
+ Exemplul aratã unul din subgrafurile posibile pentru graful G.
+
+În exemplu, dacã eliminãm nodurile divizibile cu 3, ne rãmâne multimea de noduri X1={1,2,4,5,7,8,10}.
+Odatã cu disparitia nodurilor 3, 6 si 9, dispar si arcele care au extremitãtile în aceste noduri.
+<br>
+ &#8505; Numãrul maxim de subgrafuri ale unui graf orientat cu n noduri este 2<sup>n</sup>-1.</p>
+
+<h2 id="aplicatie">Aplicatie</h2>
+<div id="iframe-container">
+        <iframe src="aplicatie.html" title="Aplicatie Grafuri Orientate" width='100%' height=700px ></iframe>
+    </div>
+<h2 id="surse">Surse</h2>
+<p>
+&#9758;https://www.pbinfo.ro/articole/509/grafuri-orientate<br>
+&#9758;https://www.ezinfo.ro/XI/gorientate/<br>
+&#9758;https://ro.wikipedia.org/wiki/Graf_orientat<br>
+&#9758;https://ro.scribd.com/document/690061282/Grafuri-Orientate<br>
+&#9758; Manual informatica clasa a XI-a<br>
+
+
+</body>
+</html>

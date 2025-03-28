@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meniu - Grafuri Orientate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh; /* Ocupă întreaga înălțime a ferestrei */
+        }
+
+        /* Stilizarea meniului */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            background-color: #2c3e50;
+            width: 100%; /* Lățime mai mare */
+            height: 100%; /* Ocupă întreaga înălțime a paginii */
+            border-radius: 0; /* Colțuri drepte */
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed; /* Fixează meniul pe stânga */
+        }
+
+        li {
+            border-bottom: 1px solid #34495e;
+        }
+
+        a {
+            display: block;
+            padding: 20px 15px;
+            color: white;
+            text-decoration: none;
+            font-size: 22px; /* Font mai mare */
+            font-weight: 600;
+            transition: background-color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #e74c3c;
+            padding-left: 25px; /* Efect de deplasare la hover */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Efect de glow la hover */
+        }
+
+        a:active {
+            background-color: #c0392b;
+        }
+
+        li:last-child {
+            border-bottom: none; /* Eliminăm linia de la ultimul element */
+        }
+
+        /* Stil pentru zona de conținut */
+        .content {
+            margin-left: 300px; /* Asigură că conținutul este vizibil lângă meniul mare */
+            padding: 20px;
+            flex-grow: 1; /* Permite ca zona de conținut să ocupe restul spațiului */
+            background-color: #fff;
+            height: 100%; /* Ocupă întreaga înălțime a paginii */
+            overflow-y: auto; /* Permite derularea verticală a conținutului */
+        }
+
+        /* Stiluri pentru secțiuni */
+        h1 {
+            color: #2c3e50;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <ul>
+        <li><a href="continut.html#introducere" target="continut">Introducere</a></li>
+        <li><a href="continut.html#terminologie" target="continut">Terminologie</a></li>
+        <li><a href="continut.html#reprezentare" target="continut">Reprezentarea in memorie</a></li>
+        <li><a href="continut.html#conexitate" target="continut">Conexitate</a></li>
+        <li><a href="continut.html#tipuri" target="continut">Tipuri de grafuri orientate</a></li>
+        <li><a href="continut.html#aplicatie" target="continut">Aplicatie</a></li>
+        <li><a href="continut.html#surse" target="continut">Surse</a></li>
+    </ul>
+
+    
+
+</body>
+</html>
