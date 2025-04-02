@@ -3,305 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz despre Grafuri Orientate</title>
+    <title>Quiz Grafuri Orientate</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: white;
-            margin: 0;
-            padding: 0;
+            background-color: #0d1117;
+            color: white;
+            text-align: center;
         }
-        .container {
+        .quiz-container {
             width: 60%;
-            margin: 50px auto;
-            background-color: white;
+            margin: auto;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .question-container {
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: white;
-            border-radius: 5px;
-        }
-        .question {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .answers {
-            list-style: none;
-            padding: 0;
-        }
-        .answer-button {
-            color: white;
-            padding: 10px;
-            margin: 5px 0;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            transition: background-color 0.3s;
-        }
-        .answer-button:nth-child(1) {
-            background-color: #2c3e50;
-        }
-        .answer-button:nth-child(2) {
-            background-color: #2c3e50;
-        }
-        .answer-button:nth-child(3) {
-            background-color: #2c3e50;
-            color: black;
-        }
-        .answer-button:nth-child(4) {
-            background-color: #2c3e50;
-        }
-
-        .answer-button:hover {
-            opacity: 0.8;
-        }
-
-        .answer-button.correct {
-            background-color: #4CAF50;
-        }
-        .answer-button.incorrect {
-            background-color: #f44336;
-        }
-
-        .answer-button.disabled {
-            cursor: not-allowed;
-        }
-
-        .submit-button {
-            background-color: #6633FF;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            width: 100%;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .submit-button:hover {
-            background-color: #0b7dda;
-        }
-
-        #result {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 20px;
-            font-weight: bold;
-            padding: 20px;
-            border-radius: 5px;
+        .hidden {
             display: none;
         }
-
-        .correct-answer {
-            color: #33FF00;
-        }
-        .incorrect-answer {
-            color: #f44336;
-        }
-
-        .back-button {
-            background-color: #FF5722;
+        .btn {
+            background: linear-gradient(45deg, #ff512f, #dd2476);
             color: white;
-            padding: 10px;
             border: none;
-            border-radius: 5px;
-            width: 100%;
+            padding: 12px 25px;
+            margin-top: 15px;
             cursor: pointer;
-            margin-top: 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.3s;
         }
-        .back-button:hover {
-            background-color: #e64a19;
+        .btn:hover {
+            background: linear-gradient(45deg, #dd2476, #ff512f);
+        }
+        .question {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        .options label {
+            display: block;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .options label:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        input[type='radio'] {
+            margin-right: 10px;
+        }
+        #warning {
+            color: #ffcc00;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>Quiz despre Grafuri Orientate</h1>
-
-    <!-- Întrebările și răspunsurile -->
-    <div class="question-container">
-        <div class="question">1. Ce reprezintă un graf orientat?</div>
-        <ul class="answers">
-            <li><button class="answer-button" data-correct="true">Un graf în care muchiile au direcție</button></li>
-            <li><button class="answer-button" data-correct="false">Un graf în care toate muchiile sunt neorientate</button></li>
-            <li><button class="answer-button" data-correct="false">Un graf fără muchii</button></li>
-            <li><button class="answer-button" data-correct="false">Un graf în care toate nodurile sunt izolate</button></li>
-        </ul>
+    <div class="quiz-container" id="start-container">
+        <h1 style="color: #ffcc00;">Bine ai venit la Quizul despre Grafuri Orientate!</h1>
+        <p>Apasă pe butonul de mai jos pentru a începe testul.</p>
+        <button class="btn" onclick="startQuiz()">Începe Quiz</button>
     </div>
 
-    <div class="question-container">
-        <div class="question">2. Ce înseamnă o "muchie" într-un graf orientat?</div>
-        <ul class="answers">
-            <li><button class="answer-button" data-correct="true">Un arc care leagă două noduri într-o anumită direcție</button></li>
-            <li><button class="answer-button" data-correct="false">Un nod care leagă două muchii</button></li>
-            <li><button class="answer-button" data-correct="false">Un nod care nu are niciun vecin</button></li>
-            <li><button class="answer-button" data-correct="false">Un graf fără muchii orientate</button></li>
-        </ul>
+    <div class="quiz-container hidden" id="question-container">
+        <p class="question" id="question-text"></p>
+        <div class="options" id="options-container"></div>
+        <p id="warning" class="hidden">Selectează un răspuns înainte de a continua!</p>
+        <button class="btn" onclick="nextQuestion()">Următoarea întrebare</button>
     </div>
 
-    <div class="question-container">
-        <div class="question">3. Care este diferența principală dintre un graf orientat și un graf neorientat?</div>
-        <ul class="answers">
-            <li><button class="answer-button" data-correct="true">În grafurile orientate, muchiile au o direcție, iar în grafurile neorientate nu</button></li>
-            <li><button class="answer-button" data-correct="false">În grafurile orientate, nu există muchii</button></li>
-            <li><button class="answer-button" data-correct="false">În grafurile neorientate nu există noduri</button></li>
-            <li><button class="answer-button" data-correct="false">În grafurile neorientate muchiile sunt mai puternice</button></li>
-        </ul>
+    <div class="quiz-container hidden" id="result-container">
+        <h2 style="color: #ffcc00;">Rezultate</h2>
+        <p>Răspunsuri corecte: <span id="correct-count"></span></p>
+        <p>Răspunsuri greșite: <span id="wrong-count"></span></p>
     </div>
 
-    <div class="question-container">
-        <div class="question">4. Care dintre următoarele afirmatii este adevărată pentru un graf orientat?</div>
-        <ul class="answers">
-            <li><button class="answer-button" data-correct="true">Muchiile au o direcție specificată</button></li>
-            <li><button class="answer-button" data-correct="false">Muchiile sunt întotdeauna bidirecționale</button></li>
-            <li><button class="answer-button" data-correct="false">Toate nodurile sunt conectate între ele</button></li>
-            <li><button class="answer-button" data-correct="false">Nu există muchii între noduri</button></li>
-        </ul>
-    </div>
+    <script>
+        const questions = [
+    { question: "Ce este un graf orientat?", options: ["Un graf cu muchii direcționate", "Un graf fără noduri", "Un graf cu cicluri", "Un graf complet"], correct: 0 },
+    { question: "Care este proprietatea principală a unui graf aciclic orientat?", options: ["Nu are cicluri", "Toate nodurile sunt conectate", "Are cel puțin un ciclu", "Este neorientat"], correct: 0 },
+    { question: "Cum se numește un graf în care fiecare nod are aceeași degajare de intrare și ieșire?", options: ["Graf echilibrat", "Graf ponderat", "Graf regulat", "Graf ciclic"], correct: 2 },
+    { question: "Ce algoritm este utilizat pentru a determina cel mai scurt drum într-un graf orientat?", options: ["Dijkstra", "Prim", "Floyd-Warshall", "Bellman-Ford"], correct: 0 },
+    { question: "Ce reprezintă un circuit eulerian?", options: ["Un drum care trece prin toate nodurile", "Un drum care trece prin toate muchiile exact o dată", "Un drum închis într-un graf complet", "Un drum care evită ciclurile"], correct: 1 },
+    { question: "Care dintre următoarele structuri de date este utilizată pentru a reprezenta un graf orientat?", options: ["Arbore binar", "Listă dublu înlănțuită", "Matrice de adiacență", "Stivă"], correct: 2 },
+    { question: "Ce condiție trebuie să îndeplinească un graf orientat pentru a fi considerat conex?", options: ["Să aibă cel puțin un ciclu", "Orice nod trebuie să fie accesibil din oricare alt nod", "Să fie bipartit", "Există un drum între oricare două noduri"], correct: 3 },
+    { question: "Ce algoritm este utilizat pentru detectarea ciclurilor într-un graf orientat?", options: ["Kruskal", "DFS (Depth-First Search)", "Prim", "Bellman-Ford"], correct: 1 },
+    { question: "Care dintre următoarele grafuri trebuie să fie întotdeauna aciclic?", options: ["Graf orientat complet", "Graf ponderat", "Graf orientat aciclic (DAG)", "Graf bipartit"], correct: 2 },
+    { question: "Care este caracteristica unui arbore orientat?", options: ["Este un graf orientat aciclic în care există un nod rădăcină", "Conține cicluri", "Are muchii neorientate", "Toate nodurile au același grad"], correct: 0 },
+    { question: "Ce tehnică se folosește pentru sortarea topologică a unui graf orientat aciclic?", options: ["BFS sau DFS", "Algoritmul lui Dijkstra", "Algoritmul Floyd-Warshall", "Backtracking"], correct: 0 },
+    { question: "Ce înseamnă că un graf orientat este tare conex?", options: ["Există un ciclu Hamiltonian", "Toate nodurile au același grad", "Există un drum orientat între orice pereche de noduri", "Grafurile nu pot fi tare conexe"], correct: 2 },
+    { question: "Ce se întâmplă dacă aplici algoritmul lui Dijkstra pe un graf orientat cu muchii negative?", options: ["Va returna întotdeauna un rezultat corect", "Poate da rezultate incorecte", "Va găsi automat ciclurile negative", "Nu va putea calcula drumul minim"], correct: 1 },
+    { question: "Într-un graf orientat ponderat, ce algoritm este mai potrivit pentru a găsi drumul minim între toate perechile de noduri?", options: ["Dijkstra", "BFS", "Floyd-Warshall", "DFS"], correct: 2 },
+    { question: "Ce proprietate are un arbore de acoperire minim într-un graf orientat?", options: ["Conține toate nodurile, dar fără cicluri", "Conține toate muchiile", "Este un graf tare conex", "Conține cicluri Euleriene"], correct: 0 },
+    { question: "Cum verifici dacă un graf orientat este bipartit?", options: ["Folosind BFS și colorând nodurile", "Folosind DFS și detectând cicluri", "Aplicând sortare topologică", "Calculând floarea maximă"], correct: 0 },
+    { question: "Dacă un graf orientat conține un ciclu, atunci …", options: ["Poate fi sortat topologic", "Este automat tare conex", "Nu poate fi sortat topologic", "Nu poate avea muchii negative"], correct: 2 },
+    { question: "Ce face algoritmul lui Kosaraju?", options: ["Detectează componentele tare conexe", "Calculează drumul minim", "Construiește arborele de acoperire minim", "Sortează nodurile într-un arbore binar"], correct: 0 },
+    { question: "Ce condiție trebuie să îndeplinească un graf pentru a avea un circuit eulerian?", options: ["Să fie bipartit", "Toate nodurile să aibă grad impar", "Toate nodurile să aibă grad egal de intrare și ieșire", "Să conțină un ciclu Hamiltonian"], correct: 2 },
+    { question: "Cum determinăm dacă un graf orientat are un drum Hamiltonian?", options: ["Folosind backtracking sau programare dinamică", "Aplicând BFS", "Aplicând Kruskal", "Folosind algoritmul lui Prim"], correct: 0 },
+    { question: "Dacă un graf orientat este reprezentat printr-o matrice de adiacență, ce înseamnă o valoare de 1 în poziția (i, j)?", options: ["Nu există muchie între i și j", "Există o muchie orientată de la i la j", "Nodurile i și j sunt identice", "Există un ciclu în graf"], correct: 1 },
+    { question: "Ce înseamnă că un graf orientat este ponderat?", options: ["Conține doar muchii neorientate", "Are un număr fix de noduri", "Fiecare muchie are o greutate asociată", "Nu poate conține cicluri"], correct: 2 },
+    { question: "Care dintre următoarele grafuri conține mai puține muchii?", options: ["Graf complet", "Graf orientat aleatoriu", "Graf parcurs BFS", "Graf tare conex"], correct: 2 },
+    { question: "Într-un graf orientat aciclic, câte sortări topologice pot exista?", options: ["Doar una", "Niciuna", "Mai multe, în funcție de ordinea nodurilor", "Numărul muchiilor în graf"], correct: 2 },
+    { question: "Dacă un graf orientat are un ciclu negativ, ce algoritm poate detecta acest lucru?", options: ["Dijkstra", "Kruskal", "Bellman-Ford", "Floyd-Warshall"], correct: 2 }
+];
 
-    <div class="question-container">
-        <div class="question">5. Ce înseamnă un graf complet orientat?</div>
-        <ul class="answers">
-            <li><button class="answer-button" data-correct="true">Fiecare pereche de noduri are o muchie în ambele direcții</button></li>
-            <li><button class="answer-button" data-correct="false">Există doar un singur nod în graf</button></li>
-            <li><button class="answer-button" data-correct="false">Toate nodurile sunt izolate</button></li>
-            <li><button class="answer-button" data-correct="false">Nu există muchii între noduri</button></li>
-        </ul>
-    </div>
 
-    <div class="question-container">
-        <div class="question">6. Care este principalul avantaj al unui graf orientat față de unul neorientat?</div>
-        <ul class="answers">
-            <li><button class="answer-button" data-correct="true">Permite modelarea relațiilor cu direcție, cum ar fi dependențele sau fluxurile</button></li>
-            <li><button class="answer-button" data-correct="false">Este mai rapid în procesarea datelor</button></li>
-            <li><button class="answer-button" data-correct="false">Este mai ușor de implementat în cod</button></li>
-            <li><button class="answer-button" data-correct="false">Nu are restricții de conexiune între noduri</button></li>
-        </ul>
-    </div>
-
-    <div class="question-container">
-        <div class="question">7. Care dintre următoarele structuri de date este folosită frecvent pentru reprezentarea unui graf orientat?</div>
-        <ul class="answers">
-            <li><button class="answer-button" data-correct="true">Listă de adiacență</button></li>
-            <li><button class="answer-button" data-correct="false">Vector unidimensional</button></li>
-            <li><button class="answer-button" data-correct="false">Heap binar</button></li>
-            <li><button class="answer-button" data-correct="false">Arbore binar</button></li>
-        </ul>
-    </div>
-
-    <div class="question-container">
-        <div class="question">8. Care dintre următoarele afirmații despre grafurile orientate este corectă?</div>
-        <ul class="answers">
-            <li><button class="answer-button" data-correct="true">Un graf orientat poate avea bucle (muchii care se leagă de același nod)</button></li>
-            <li><button class="answer-button" data-correct="false">Grafurile orientate nu pot avea niciodată bucle</button></li>
-            <li><button class="answer-button" data-correct="false">În grafurile orientate, toate muchiile sunt egale</button></li>
-            <li><button class="answer-button" data-correct="false">Nodurile dintr-un graf orientat nu pot fi conectate direct între ele</button></li>
-        </ul>
-    </div>
-
-    <div class="question-container">
-        <div class="question">9. Ce înseamnă termenul "gradul unui nod" într-un graf orientat?</div>
-        <ul class="answers">
-            <li><button class="answer-button" data-correct="true">Numărul de muchii care ies din nod</button></li>
-            <li><button class="answer-button" data-correct="false">Numărul de noduri care sunt adiacente acestui nod</button></li>
-            <li><button class="answer-button" data-correct="false">Numărul total de muchii din graf</button></li>
-            <li><button class="answer-button" data-correct="false">Numărul de noduri care au legătura directă cu nodul respectiv</button></li>
-        </ul>
-    </div>
-
-    <div class="question-container">
-        <div class="question">10. Ce reprezintă termenul "cicluri" într-un graf orientat?</div>
-        <ul class="answers">
-            <li><button class="answer-button" data-correct="true">Un ciclu este o secvență de noduri care începe și se termină pe același nod, cu muchii care duc într-o direcție specificată</button></li>
-            <li><button class="answer-button" data-correct="false">Ciclurile sunt doar noduri care nu sunt conectate de nicio muchie</button></li>
-            <li><button class="answer-button" data-correct="false">Ciclurile sunt muchii care leagă două noduri</button></li>
-            <li><button class="answer-button" data-correct="false">Un ciclu este un graf care conține doar o singură muchie</button></li>
-        </ul>
-    </div>
-
-    <button class="submit-button" onclick="submitQuiz()">Trimite răspunsurile</button>
-
-    <button class="back-button" onclick="undoLastAnswer()">Înapoi</button>
-
-    <div id="result"></div>
-</div>
-
-<script>
-    let lastSelectedButton = null;
-
-    // Functie pentru a gestiona click-ul pe butoanele de raspuns
-    const answerButtons = document.querySelectorAll('.answer-button');
-
-    answerButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Verifică dacă există un răspuns deja selectat
-            if (lastSelectedButton) {
-                lastSelectedButton.classList.remove('correct', 'incorrect');
-                lastSelectedButton.disabled = false;
-            }
-
-            // Deactivează toate butoanele pentru a preveni schimbarea răspunsului
-            const parent = button.closest('ul');
-            const allButtons = parent.querySelectorAll('.answer-button');
-            allButtons.forEach(b => b.classList.add('disabled'));
-
-            // Verifică dacă răspunsul este corect sau nu
-            if (button.getAttribute('data-correct') === 'true') {
-                button.classList.add('correct');
-            } else {
-                button.classList.add('incorrect');
-            }
-
-            // Salvează butonul selectat
-            lastSelectedButton = button;
-            button.disabled = true;
-        });
-    });
-
-    // Functie pentru a trimite răspunsurile
-    function submitQuiz() {
-        const allButtons = document.querySelectorAll('.answer-button');
+        let currentQuestionIndex = 0;
         let correctAnswers = 0;
-        let incorrectAnswers = 0;
+        let wrongAnswers = 0;
 
-        allButtons.forEach(button => {
-            if (button.classList.contains('correct')) {
-                correctAnswers++;
-            } else if (button.classList.contains('incorrect')) {
-                incorrectAnswers++;
-            }
-        });
-
-        // Crearea mesajului de rezultate cu efect
-        const resultDiv = document.querySelector('#result');
-        resultDiv.textContent = `Ai răspuns corect la ${correctAnswers} întrebări și greșit la ${incorrectAnswers} întrebări.`;
-        resultDiv.style.display = 'block';
-        resultDiv.classList.add('fade-in');
-    }
-
-    // Funcție pentru a anula ultima alegere
-    function undoLastAnswer() {
-        if (lastSelectedButton) {
-            const parent = lastSelectedButton.closest('ul');
-            const allButtons = parent.querySelectorAll('.answer-button');
-            allButtons.forEach(b => b.classList.remove('disabled')); // Reactivăm butoanele
-            lastSelectedButton.classList.remove('correct', 'incorrect');
-            lastSelectedButton.disabled = false; // Permitem selectarea din nou
-            lastSelectedButton = null; // Resetează selecția
+        function startQuiz() {
+            document.getElementById("start-container").classList.add("hidden");
+            document.getElementById("question-container").classList.remove("hidden");
+            loadQuestion();
         }
-    }
-</script>
 
+        function loadQuestion() {
+            const questionElement = document.getElementById("question-text");
+            const optionsContainer = document.getElementById("options-container");
+            const currentQuestion = questions[currentQuestionIndex];
+            
+            questionElement.textContent = currentQuestion.question;
+            optionsContainer.innerHTML = "";
+            currentQuestion.options.forEach((option, index) => {
+                const label = document.createElement("label");
+                label.innerHTML = `<input type='radio' name='answer' value='${index}'> ${option}`;
+                optionsContainer.appendChild(label);
+            });
+        }
+
+        function nextQuestion() {
+            const selectedOption = document.querySelector("input[name='answer']:checked");
+            if (!selectedOption) {
+                document.getElementById("warning").classList.remove("hidden");
+                return;
+            }
+            document.getElementById("warning").classList.add("hidden");
+
+            if (parseInt(selectedOption.value) === questions[currentQuestionIndex].correct) {
+                correctAnswers++;
+            } else {
+                wrongAnswers++;
+            }
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById("question-container").classList.add("hidden");
+            document.getElementById("result-container").classList.remove("hidden");
+            document.getElementById("correct-count").textContent = correctAnswers;
+            document.getElementById("wrong-count").textContent = wrongAnswers;
+        }
+    </script>
 </body>
 </html>

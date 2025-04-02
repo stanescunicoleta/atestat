@@ -5,42 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grafuri Orientate</title>
     <style>
-       
+        /* Stilizare body */
         body {
-            background-image: url('imagini/avioane.jpg');
-            background-size: cover;
-            background-position: center;
             margin: 0;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: white;
+            background: url('imagini/avioane.jpg') no-repeat center center;
+            background-size: cover;
             font-family: 'Arial', sans-serif;
-			
-			
+            text-align: center;
+            position: relative;
+            color: white;
         }
 
-      
-        h1 {
-            font-size: 4em;
-            color: #2c3e50; 
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-            animation: glow 1.5s ease-in-out infinite alternate; 
+        /* Suprapunere semi-transparentă pentru lizibilitate */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3); /* Fundal negru semi-transparent */
+            z-index: 0;
         }
 
-       
-        @keyframes glow {
-            0% {
-                text-shadow: 0 0 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 0, 0, 0.7);
-            }
-            100% {
-                text-shadow: 0 0 20px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 0, 0, 0.7), 0 0 60px rgba(0, 0, 0, 0.7);
-            }
+        /* Stilizare titlu */
+        .title {
+            font-size: 50px;
+            font-weight: bold;
+            text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.8);
+            animation: floating 3s infinite ease-in-out;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Efect hover titlu */
+        .title:hover {
+            text-shadow: 6px 6px 30px rgba(255, 255, 255, 1);
+            transform: scale(1.1);
+        }
+
+        /* Animatie plutire */
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Stilizare nume */
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+            animation: floating 3s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        /* Efect hover nume */
+        .name:hover {
+            text-shadow: 4px 4px 20px rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
-    <h1>Grafuri Orientate</h1>
+    <div class="title">Grafuri Orientate</div>
+    <div class="name">Stănescu Nicoleta</div>
 </body>
 </html>

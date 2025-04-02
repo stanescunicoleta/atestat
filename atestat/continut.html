@@ -1,6 +1,69 @@
 <!DOCTYPE HTML>
 <html>
-<head> <title> Atestat </title> </head>
+<head> <title> Atestat </title> 
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 20px;
+        padding: 20px;
+        background-color: #f4f4f4;
+    }
+
+    
+h2 {
+    color: #8B0000; /* Font rosu */
+    border: 2px solid #D3D3D3; /* Margine gri deschis */
+    padding: 10px; /* Adaugã un pic de spatiu în jurul textului */
+    border-radius: 8px; /* Colturi rotunjite */
+    background-color: #F5F5F5; /* Fundal gri deschis pentru titluri */
+    transition: all 0.3s ease; /* Efect de tranzitie pentru animatie */
+    text-shadow: 2px 2px 5px rgba(139, 0, 0, 1); /* Iluminare rosie pe marginea fontului */
+	
+}
+
+h2:hover {
+    color: #FFFFFF; /* Culoare text albã la hover */
+    background-color: #2c3e50; /* Fundal negru la hover */
+    border: 2px solid red; /* Bordurã rosie la hover */
+    box-shadow: 0 0 15px rgba(255, 20, 147, 0.8); /* Iluminare roz fuchsia pe margini */
+    transform: scale(1.1); /* Creste usor titlul */
+    text-shadow: 2px 2px 10px rgba(128, 128, 128, 0.8); /* Iluminare gri pe marginea fontului la hover */
+}
+
+
+
+    h3 {
+        color: #333;
+		
+    }
+
+    pre {
+        background: #333;
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+</style>
+
+
+</head>
 <body>
 
 <h2 id="introducere">Introducere</h2>
@@ -201,18 +264,392 @@ Un exemplu de graf orientat si un subgraf al sãu:</p>
 Odatã cu disparitia nodurilor 3, 6 si 9, dispar si arcele care au extremitãtile în aceste noduri.
 <br>
  &#8505; Numãrul maxim de subgrafuri ale unui graf orientat cu n noduri este 2<sup>n</sup>-1.</p>
+<h2 id="parcurgere">Metode de parcurgere a grafurilor orientate</h2>
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcurgerea Grafurilor Orientate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h2, h3 {
+            color: #333;
+        }
+        pre {
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    
 
-<h2 id="aplicatie">Aplicatie</h2>
+    <h3><u><b>1. Parcurgerea în adâncime (DFS - Depth-First Search)</b></u></h3>
+    <p>Parcurgerea în adâncime (DFS) exploreazã cât mai adânc un graf înainte de a reveni la nodurile anterioare. Aceastã tehnicã poate fi implementatã recursiv sau iterativ, folosind o stivã.</p>
+
+    <p>&#8505; DFS este utilã pentru determinarea componentelor conexe, detectarea ciclurilor si sortarea topologicã.</p>
+
+    <p><b>Algoritmul DFS (C<sup>++</sup>):</b></p>
+    <pre><code>
+// DepthFirstCPP.cpp : Defines the entry point for the console application.
+ 
+#include "stdafx.h"
+#include <iostream>
+ 
+using namespace std;
+ 
+int a[20][20], n, m, viz[100], gasit;
+ 
+void dfmr(int nod)
+{
+	cout << nod << " ";
+	viz[nod] = 1;
+	for (int k = 1; k <= n; k++)
+	if (a[nod][k] == 1 && viz[k] == 0)
+		dfmr(k);
+}
+ 
+void main()
+{
+	int x, y, j;
+	cout << "numarul de noduri: ";
+	cin >> n;
+	cout << "numarul de muchii: ";
+	cin >> m;
+	for (int i = 1; i <= m; i++)
+	{
+		cout << "nodul sursa: ";
+		cin >> x;
+		cout << "nodul destinatie: ";
+		cin >> y;
+		a[x][y] = 1;
+	}
+	cout << endl << "matricea de adiacente" << endl;
+	for (int i = 1; i <= n; i++)
+	{
+		for (j = 1; j <= n; j++)
+			cout << a[i][j] << " ";
+		cout << endl;
+	}
+	cout << endl << "parcurgere in adancime incepand de la varful 1" << endl;
+	dfmr(1);
+	system("pause");
+}
+    </code></pre>
+
+    <h3><u><b>2. Parcurgerea în lãtime (BFS - Breadth-First Search)</b></u></h3>
+    <p>Parcurgerea în lãtime (BFS) exploreazã mai întâi toate nodurile de pe acelasi nivel înainte de a trece la nivelul urmãtor. BFS utilizeazã o coadã pentru gestionarea ordinii vizitãrii nodurilor.</p>
+
+    <p>&#8505; BFS este utilã pentru gãsirea celui mai scurt drum într-un graf neponderat.</p>
+
+    <p><b>Algoritmul BFS:</b></p>
+    <pre><code>
+// BreadthFirstCPP.cpp : Defineste punctul de intrare pentru aplicatia consolã. 
+
+ 
+#include  „stdafx.h” 
+#include  <iostream>
+ 
+folosind  namespace  std ;
+ 
+int  a [ 10 ][ 10 ],  c [ 20 ],  adicã [ 10 ]; 
+int  n ,  m ,  prim ,  ultim ,  varf ;
+ 
+void  bf_iterativ ()  //parcurgerea in latime 
+{ 
+	int  k ; 
+	while  ( prim  <=  ultim ) 
+	{ 
+		varf  =  c [ prim ]; 
+		for  ( k  =  1 ;  k  <=  n ;  k ++) 
+		if  ( a [ varf ][ k ]  ==  1  &&  viz [ k ]  ==  0 )  //il adaug pe k in coada daca este vecin pt. varf si nu a fost vizitat 
+		{ 
+			ultim ++; 
+			c [ ultim ]  =  k ; 
+			adicã [ k ]  =  1 ; 
+		} 
+		prim ++; 
+	} 
+}
+ 
+void  main () 
+{ 
+	int  x ,  y ; 
+	/*fstream f; //memorare graf in matrice de adiacenta 
+	f.open("muchii.txt", ios::in); 
+	f >> n >> m;*/ 
+	cout  <<  "nr de noduri= " ; 
+	cin  >>  n ; 
+	cout  <<  "nr de multii= " ; 
+	cin  >>  m ; 
+	for  ( int  i  =  1 ;  i  <=  m ;  i ++) 
+	{ 
+		cout  <<  "nod sursa: " ; 
+		cin  >>  x ; 
+		cout  <<  "nod destinatie: " ; 
+		cin  >>  y ; 
+		//f >> x >> y; 
+		a [ x ][ y ]  =  1 ; 
+	}
+ 
+	cout  <<  "matricea de adiac "  <<  endl ;  // afisare matrice de adiacenta 
+	for  ( int  i  =  1 ;  i  <=  n ;  i ++) 
+	{ 
+		for  ( int  j  =  1 ;  j  <=  n ;  j ++) 
+			cout  <<  a [ i ][ j ]  <<  " " ; 
+		cout  <<  endl ; 
+	}
+ 
+	int  nd ; 
+	prim  =  ultim  =  1 ; 
+	cout  <<  "varful de inceput=" ; 
+	cin  >>  nd ;   // varful de la care se porneste parcurgerea 
+	viz [ nd ]  =  1 ; 
+	c [ prim ]  =  nd ; 
+	bf_iterativ (); 
+	for  ( int  i  =  1 ;  i  <=  ultim ;  i ++)    //afisarea cozii 
+		cout  <<  c [ i ]  <<  " " ; 
+	sistem ( „pauzã” ); 
+}
+    </code></pre>
+
+    <h3><u><b>3. Compararea DFS vs. BFS</b></u></h3>
+    <p>Diferentele dintre DFS si BFS sunt prezentate în tabelul de mai jos:</p>
+
+    <table>
+        <tr>
+            <th>Caracteristicã</th>
+            <th>DFS</th>
+            <th>BFS</th>
+        </tr>
+        <tr>
+            <td>Structurã utilizatã</td>
+            <td>Stivã (recursiv)</td>
+            <td>Coada</td>
+        </tr>
+        <tr>
+            <td>Ordine de vizitare</td>
+            <td>Pe ramuri, adâncime maximã</td>
+            <td>Nivel cu nivel</td>
+        </tr>
+        <tr>
+            <td>Utilizare</td>
+            <td>Detectare cicluri, componente conexe</td>
+            <td>Gãsirea celui mai scurt drum</td>
+        </tr>
+        <tr>
+            <td>Complexitate timp</td>
+            <td>O(V + E)</td>
+            <td>O(V + E)</td>
+        </tr>
+    </table>
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmi pe Grafuri Orientate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h2, h3 {
+            color: #333;
+        }
+        pre {
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h2 id="algoritmi">Algoritmi pe grafuri orientate</h2>
+
+    <h3><u><b>1. Algoritmul lui Bellman-Ford</b></u></h3>
+    <p>Algoritmul lui Bellman-Ford este utilizat pentru a gãsi cel mai scurt drum de la un nod sursã la toate celelalte noduri, chiar si în grafuri cu ponderi negative.</p>
+    <p>&#8505; Este mai lent decât Dijkstra, dar poate detecta cicluri negative.</p>
+    <p><b>Implementare C++:</b></p>
+    <pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;limits&gt;
+using namespace std;
+
+void BellmanFord(int n, int start, vector<vector<int>>& muchii) {
+    vector<int> dist(n, INT_MAX);
+    dist[start] = 0;
+    
+    for (int i = 0; i < n - 1; i++) {
+        for (auto& m : muchii) {
+            int u = m[0], v = m[1], cost = m[2];
+            if (dist[u] != INT_MAX && dist[u] + cost < dist[v]) {
+                dist[v] = dist[u] + cost;
+            }
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        cout << "Distanta la " << i << " este " << dist[i] << "\n";
+    }
+}
+    </code></pre>
+
+    <h3><u><b>2. Algoritmul lui Floyd-Warshall</b></u></h3>
+    <p>Floyd-Warshall este un algoritm pentru gãsirea celor mai scurte drumuri între toate perechile de noduri dintr-un graf orientat.</p>
+    <p>&#8505; Functioneazã prin actualizarea treptatã a distantelor minime între perechi de noduri.</p>
+    <p><b>Implementare C++:</b></p>
+    <pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;limits&gt;
+using namespace std;
+
+void FloydWarshall(vector<vector<int>>& dist, int n) {
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dist[i][k] != INT_MAX && dist[k][j] != INT_MAX)
+                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+            }
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (dist[i][j] == INT_MAX)
+                cout << "INF ";
+            else
+                cout << dist[i][j] << " ";
+        }
+        cout << "\n";
+    }
+}
+    </code></pre>
+
+    <h3><u><b>3. Algoritmul lui Dijkstra</b></u></h3>
+    <p>Algoritmul lui Dijkstra determinã cel mai scurt drum de la un nod sursã la toate celelalte noduri dintr-un graf cu ponderi pozitive.</p>
+    <p>&#8505; Foloseste o coadã de prioritãti pentru optimizarea selectiei nodului cu cea mai micã distantã curentã.</p>
+    <p><b>Implementare C++:</b></p>
+    <pre><code>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;limits&gt;
+using namespace std;
+
+void Dijkstra(int start, const vector<vector<pair<int, int>>>& graf) {
+    int n = graf.size();
+    vector<int> dist(n, INT_MAX);
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+    dist[start] = 0;
+    pq.push({0, start});
+    
+    while (!pq.empty()) {
+        int d = pq.top().first, nod = pq.top().second;
+        pq.pop();
+        if (d > dist[nod]) continue;
+        for (auto vecin : graf[nod]) {
+            int v = vecin.first, cost = vecin.second;
+            if (dist[nod] + cost < dist[v]) {
+                dist[v] = dist[nod] + cost;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        cout << "Distanta la " << i << " este " << dist[i] << "\n";
+    }
+}
+    </code></pre>
+
+    <h3><u><b>4. Compararea algoritmilor</b></u></h3>
+    <p>Diferentele dintre algoritmii Bellman-Ford, Floyd-Warshall si Dijkstra sunt prezentate în tabelul de mai jos:</p>
+
+    <table>
+        <tr>
+            <th>Caracteristicã</th>
+            <th>Bellman-Ford</th>
+            <th>Floyd-Warshall</th>
+            <th>Dijkstra</th>
+        </tr>
+        <tr>
+            <td>Tip graf</td>
+            <td>Orientat, ponderat (inclusiv ponderi negative)</td>
+            <td>Orientat, ponderat (doar ponderi pozitive sau negative)</td>
+            <td>Orientat, ponderat (doar ponderi pozitive)</td>
+        </tr>
+        <tr>
+            <td>Tip problemã</td>
+            <td>Drum minim de la un singur nod</td>
+            <td>Drum minim între toate perechile de noduri</td>
+            <td>Drum minim de la un singur nod</td>
+        </tr>
+        <tr>
+            <td>Complexitate</td>
+            <td>O(VE)</td>
+            <td>O(V3)</td>
+            <td>O((V+E) log V)</td>
+        </tr>
+    </table>
+</body>
+</html>
+
+
+<h2 id="quiz">Quiz</h2>
 <div id="iframe-container">
-        <iframe src="aplicatie.html" title="Aplicatie Grafuri Orientate" width='100%' height=700px ></iframe>
+        <iframe src="aplicatie.html" title="Quiz" width='100%' height=500px ></iframe>
+    </div>
+	<h2 id="joc">Joc interactiv</h2>
+<div id="iframe-container">
+        <iframe src="joc.html" title="joc" width='100%' height=700px ></iframe>
     </div>
 <h2 id="surse">Surse</h2>
 <p>
-&#9758;https://www.pbinfo.ro/articole/509/grafuri-orientate<br>
-&#9758;https://www.ezinfo.ro/XI/gorientate/<br>
-&#9758;https://ro.wikipedia.org/wiki/Graf_orientat<br>
-&#9758;https://ro.scribd.com/document/690061282/Grafuri-Orientate<br>
-&#9758; Manual informatica clasa a XI-a<br>
+&#9758;<a href='https://www.pbinfo.ro/articole/509/grafuri-orientate'>https://www.pbinfo.ro/articole/509/grafuri-orientate</a><br>
+&#9758;<a href='https://www.ezinfo.ro/XI/gorientate/'>https://www.ezinfo.ro/XI/gorientate/</a><br>
+&#9758;<a href='https://ro.wikipedia.org/wiki/Graf_orientat'>https://ro.wikipedia.org/wiki/Graf_orientat</a><br>
+&#9758;<a href='https://www.panseluta.ro/c/Grafuri/Parcurgerea%20Grafurilor%20Orientate.pdf'>https://www.panseluta.ro/c/Grafuri/Parcurgerea%20Grafurilor%20Orientate.pdf</a><br>
+&#9758;<a href='https://manuale.edu.ro/manuale/Clasa%20a%20XI-a/Informatica/EDP1/A151.pdf'>Manual informatica clasa a XI-a</a><br>
 
 
 </body>

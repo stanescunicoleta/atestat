@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joc cu Grafuri Orientate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f0f0f0;
+            color: #333;
+        }
+        h1 {
+            color: #333;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        canvas {
+            border: 2px solid black;
+            background: white;
+            display: block;
+            margin: 20px auto;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            background: transparent;
+            color: black;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h1>Joc cu Grafuri Orientate</h1>
+    <p>Click pe canvas pentru a adăuga noduri. Click pe două noduri pentru a crea o muchie orientată.</p>
+
+    <canvas id="graphCanvas"></canvas>
+
+    <div class="controls">
+        <label for="startNode">Nod Start:</label>
+        <input type="number" id="startNode">
+        
+        <label for="endNode">Nod Sfârșit:</label>
+        <input type="number" id="endNode">
+        
+        <button onclick="checkPath()">Verifică Drum</button>
+        
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("graphCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 600;
+        canvas.height = 400;
+
+        let nodes = [];
+        let edges = [];
+        let adjacencyList = {};
+        let selectedNode = null;
+
+        class Node {
+            constructor(x, y, id) {
+                this.x = x;
+                this.y = y;
+                this.id = id;
+                this.radius = 20;
+            }
+            draw() {
+                ctx.strokeStyle = "blue";
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.fillStyle = "black";
+                ctx.font = "16px Arial";
+                ctx.fillText(this.id, this.x - 5, this.y + 5);
+            }
+        }
+
+        class Edge {
+            constructor(from, to) {
+                this.from = from;
+                this.to = to;
+                if (!adjacencyList[from.id]) adjacencyList[from.id] = [];
+                adjacencyList[from.id].push(to.id);
+            }
+            draw() {
+                ctx.strokeStyle = "black";
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(this.from.x, this.from.y);
+                ctx.lineTo(this.to.x, this.to.y);
+                ctx.stroke();
+                
+                const arrowSize = 12;
+                const angle = Math.atan2(this.to.y - this.from.y, this.to.x - this.from.x);
+                
+                const arrowX = this.to.x - arrowSize * Math.cos(angle);
+                const arrowY = this.to.y - arrowSize * Math.sin(angle);
+                
+                ctx.fillStyle = "black";
+                ctx.beginPath();
+                ctx.moveTo(this.to.x, this.to.y);
+                ctx.lineTo(arrowX - arrowSize * Math.cos(angle - Math.PI / 6), arrowY - arrowSize * Math.sin(angle - Math.PI / 6));
+                ctx.lineTo(arrowX - arrowSize * Math.cos(angle + Math.PI / 6), arrowY - arrowSize * Math.sin(angle + Math.PI / 6));
+                ctx.closePath();
+                ctx.fill();
+            }
+        }
+
+        canvas.addEventListener("click", (event) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            const clickedNode = nodes.find(node => Math.hypot(node.x - x, node.y - y) < node.radius);
+
+            if (clickedNode) {
+                if (!selectedNode) {
+                    selectedNode = clickedNode;
+                } else {
+                    if (selectedNode !== clickedNode) {
+                        edges.push(new Edge(selectedNode, clickedNode));
+                    }
+                    selectedNode = null;
+                }
+            } else {
+                const newNode = new Node(x, y, nodes.length + 1);
+                nodes.push(newNode);
+            }
+
+            redrawGraph();
+        });
+
+        function redrawGraph() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            edges.forEach(edge => edge.draw());
+            nodes.forEach(node => node.draw());
+        }
+
+        function checkPath() {
+            const start = parseInt(document.getElementById("startNode").value);
+            const end = parseInt(document.getElementById("endNode").value);
+            
+            if (isNaN(start) || isNaN(end)) {
+                document.getElementById("result").textContent = "Introduceți valori valide pentru noduri.";
+                return;
+            }
+            
+            const visited = new Set();
+            function dfs(node) {
+                if (node === end) return true;
+                if (visited.has(node)) return false;
+                visited.add(node);
+                
+                if (adjacencyList[node]) {
+                    for (let neighbor of adjacencyList[node]) {
+                        if (dfs(neighbor)) return true;
+                    }
+                }
+                return false;
+            }
+            
+            if (dfs(start)) {
+                document.getElementById("result").textContent = "Drumul există!";
+            } else {
+                document.getElementById("result").textContent = "Drumul nu există!";
+            }
+        }
+    </script>
+</body>
+</html>
